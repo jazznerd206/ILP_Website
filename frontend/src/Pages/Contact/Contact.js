@@ -1,9 +1,10 @@
 import React from 'react';
 import './styles.css';
+import '../styles.css';
 
 function Contact() {
     return (
-        <div>
+        <div className="page-wrapper">
             Contact
         </div>
     )
