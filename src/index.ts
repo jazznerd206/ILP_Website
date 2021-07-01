@@ -1,24 +1,18 @@
-import Server from './server';
-import { Signal } from 'typed-signals';
-import { createServer } from 'http';
-import config from './config';
+import { createServer } from "http";
+import signale from "signale";
+import Server from "./server";
 
-const app = new Server().bootstrap();
+const PORT: number = 8080;
+const app = new Server(8080).bootstrap();
 const server = createServer(app);
-  
-server.listen(config.PORT);
-server.on('listening', onSuccess);
-server.on('error', onError);
+server.listen(PORT);
+server.on("listening", onSuccess);
+server.on("error", onError);
 
-let string = new Signal<(s: string) => void>();
-let connection = string.connect((s)=> console.log(`${s}`));
 function onSuccess() {
-    string.emit(`🚀  server listening` );
-    connection.disconnect();
+    signale.success("🚀  server listening on port:", PORT);
   }
-  
+
 function onError(error: any) {
-    string.emit(`There was an error.`);
-    console.log(error);
-    connection.disconnect();
+    signale.error("There was an error:", error);
   }
